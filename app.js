@@ -5,10 +5,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var adminRouter = require('./routes/admin');
 var customerRouter = require('./routes/customer');
 // var adminRouter = require('/routes/admin');
 // var partnerRouter = require('/routes/partner');
+
+const cors = require('cors');
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
 
 var app = express();
 
@@ -23,9 +30,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/customer', customerRouter);
 // app.use('/admin', adminRouter);
+app.use('/customer', customerRouter);
+app.use(cors(corsOptions));
 // app.use('/partner', adminRouter);
 
 // catch 404 and forward to error handler
